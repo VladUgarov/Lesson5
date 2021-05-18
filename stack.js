@@ -17,15 +17,6 @@ class Stack{
         this.current = 0;
 
     }
-
-    [Symbol.iterator]() {
-        this.current = this.from
-        return this
-    }
-    next(){
-
-    }
-
     push = (elem) => {
         if(this.current >= this.maxSize){
             throw new Error("Cтек переполнен")
