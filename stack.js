@@ -66,17 +66,15 @@ class Stack{
         return array
     }
      fromIterable(iterable){
-
-        return new Stack()
+        let iterStackCurrent = this.current
+        let arr =  iterable.toArray()
+        let iterStack = new Stack(iterStackCurrent)
+         for (let i = 0; i < iterStackCurrent; i++){
+             iterStack.push(arr[i])
+         }
+         iterStack.current = this.current
+        return iterStack
     }
 }
 
-let stack = new Stack(3)
-stack.push(1)
-stack.push(2)
-
-let stack2 = stack.fromIterable(stack)
-console.log(stack)
-console.log(stack2)
-
-module.exports = {Stack}
+module.exports = { Stack };
