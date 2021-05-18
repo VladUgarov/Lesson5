@@ -44,12 +44,23 @@ class Stack{
             return false
         }
     }
+    toArray = () => {
+        let array = []
+        let stackLength = this.current
+        while (stackLength >0){
+            array.unshift(this.storage[stackLength-1])
+            stackLength--
+        }
+
+        return array
+    }
 
 }
 
 let stack = new Stack(3)
 stack.push(2)
+stack.push(3)
 
 
-console.log(stack.isEmpty())
-console.log(stack.peek())
+
+module.exports = {Stack}
