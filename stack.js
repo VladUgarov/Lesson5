@@ -17,6 +17,15 @@ class Stack{
         this.current = 0;
 
     }
+
+    [Symbol.iterator]() {
+        this.current = this.from
+        return this
+    }
+    next(){
+
+    }
+
     push = (elem) => {
         if(this.current >= this.maxSize){
             throw new Error("Cтек переполнен")
@@ -46,21 +55,28 @@ class Stack{
     }
     toArray = () => {
         let array = []
-        let stackLength = this.current
-        while (stackLength >0){
-            array.unshift(this.storage[stackLength-1])
-            stackLength--
+        while (this.current >0) {
+            array.push(this.peek())
+            this.pop()
         }
-
+        array.reverse()
+        for (let i = 0; i < array.length; i++){
+            this.push(array[i])
+        }
         return array
     }
+     fromIterable(iterable){
 
+        return new Stack()
+    }
 }
 
 let stack = new Stack(3)
+stack.push(1)
 stack.push(2)
-stack.push(3)
 
-
+let stack2 = stack.fromIterable(stack)
+console.log(stack)
+console.log(stack2)
 
 module.exports = {Stack}
