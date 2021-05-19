@@ -17,34 +17,34 @@ class Stack{
         this.current = 0;
 
     }
-    push = (elem) => {
+    push(elem){
         if(this.current >= this.maxSize){
             throw new Error("Cтек переполнен")
         }
         this.storage[this.current] = elem
         this.current++
     }
-    pop = () => {
+    pop(){
         if(this.current === 0){
             throw new Error("Стек пуст")
         }
         this.current--
         delete this.storage[this.current]
     }
-    peek = () => {
+    peek(){
         if(this.current === 0){
             return null
         }
         return this.storage[this.current-1]
     }
-    isEmpty = () => {
+    isEmpty(){
         if(this.current ===0){
             return true
         }else{
             return false
         }
     }
-    toArray = () => {
+    toArray(){
         let array = []
         while (this.current >0) {
             array.push(this.peek())
@@ -56,14 +56,14 @@ class Stack{
         }
         return array
     }
-     fromIterable(iterable){
+    fromIterable(iterable){
         let iterStackCurrent = this.current
         let arr =  iterable.toArray()
         let iterStack = new Stack(iterStackCurrent)
-         for (let i = 0; i < iterStackCurrent; i++){
-             iterStack.push(arr[i])
-         }
-         iterStack.current = this.current
+        for (let i = 0; i < iterStackCurrent; i++){
+            iterStack.push(arr[i])
+        }
+        iterStack.current = this.current
         return iterStack
     }
 }
