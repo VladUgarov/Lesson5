@@ -1,21 +1,13 @@
-class Stack{
-    constructor(maxSize) {
-        this.maxSize = maxSize
-        if(this.maxSize === undefined){
-            this.maxSize = 10
-            this.storage = new Array(this.maxSize);
+class Stack {
+    constructor(maxSize = 10) {
 
-        }
-
-        else if(typeof this.maxSize !== "number" ||  !isFinite(this.maxSize)){
+        if (typeof maxSize !== "number" || !isFinite(maxSize) || maxSize <= 0) {
             throw new Error("Введенное число невалидно")
-        }
-        else{
+        } else {
             this.maxSize = maxSize
-            this.storage = new Array(this.maxSize)
+            this.storage = []
+            this.current = 0;
         }
-        this.current = 0;
-
     }
     push(elem){
         if(this.current >= this.maxSize){
@@ -56,16 +48,23 @@ class Stack{
         }
         return array
     }
-    fromIterable(iterable){
-        let iterStackCurrent = this.current
-        let arr =  iterable.toArray()
-        let iterStack = new Stack(iterStackCurrent)
-        for (let i = 0; i < iterStackCurrent; i++){
-            iterStack.push(arr[i])
+    static fromIterable(iterable) {
+
+        if (iterable == null || typeof iterable[Symbol.iterator] !== "function") {
+            throw new Error("Сущность не итерируемая");
         }
-        iterStack.current = this.current
-        return iterStack
+        let iterStack = new Stack(iterable.length)
+        let iterator = [...iterable][Symbol.iterator]();
+
+        while (true) {
+            let iteratorValue = iterator.next();
+            if (iteratorValue.done) break;
+            iterStack.storage[iterStack.current] = iteratorValue.value;
+            iterStack.current++
+        }
+        return iterStack;
     }
 }
-
 module.exports = { Stack };
+
+
